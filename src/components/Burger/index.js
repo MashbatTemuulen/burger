@@ -1,6 +1,7 @@
 import React from "react";
 import BurgerIngredient from "../BurgerIngredient";
 import css from "./style.module.css";
+import { connect } from "react-redux";
 
 const Burger = (props) => {
   const items = Object.entries(props.orts);
@@ -11,6 +12,7 @@ const Burger = (props) => {
         <BurgerIngredient key={`${element[0]}${i}`} type={element[0]} />
       );
     }
+    return 0;
   });
   if (content.length === 0) {
     content = <p>Хачиртай талхныхаа орцыг сонгоно уу</p>;
@@ -24,4 +26,10 @@ const Burger = (props) => {
   );
 };
 
-export default Burger;
+const mapStateToProps = (state) => {
+  return {
+    orts: state.burgerReducer.ingredients,
+  };
+};
+
+export default connect(mapStateToProps)(Burger);

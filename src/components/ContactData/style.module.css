@@ -1,0 +1,13 @@
+.Form {
+    width: 300px;
+    display: grid;
+    margin: 0 auto;
+}
+
+.Form input{
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin: 10px 20px;
+}

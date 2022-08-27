@@ -1,39 +1,40 @@
 import React from "react";
-import css from "./css.module.css";
-import Axios from "../../axios-orders";
+import { connect } from "react-redux";
 import Spinner from "../../components/General/Spinner";
 import Order from "../../components/Order";
+import * as actions from "../../redux/actions/orderActions";
 
 class OrderPage extends React.Component {
-  state = {
-    orders: [],
-    loading: false,
-  };
   componentDidMount = () => {
-    this.setState({ loading: true });
-    console.log(this.props);
-
-    Axios.get("/orders.json")
-      .then((response) => {
-        this.setState({ orders: Object.entries(response.data).reverse() });
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        this.setState({ loading: false });
-      });
+    this.props.loadOrders(this.props.userId);
   };
 
   render(props) {
+    // console.log(JSON.stringify(this.state.orders));
     return (
       <div>
-        {this.state.loading ? (
+        {this.props.loading ? (
           <Spinner />
         ) : (
-          this.state.orders.map((el) => <Order key={el[0]} order={el[1]} />)
+          this.props.orders.map((el) => <Order key={el[0]} order={el[1]} />)
         )}
       </div>
     );
   }
 }
 
-export default OrderPage;
+const mapStateToProps = (state) => {
+  return {
+    orders: state.orderReducer.orders,
+    loading: state.orderReducer.loading,
+    userId: state.signupReducer.userId,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadOrders: (userId) => dispatch(actions.loadOrders(userId)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderPage);

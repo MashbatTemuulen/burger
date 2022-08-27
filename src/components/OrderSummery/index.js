@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../General/Button";
+import { connect } from "react-redux";
 
 const OrderSummery = (props) => {
   return (
@@ -27,4 +28,12 @@ const OrderSummery = (props) => {
   );
 };
 
-export default OrderSummery;
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.burgerReducer.ingredients,
+    ingredientNames: state.burgerReducer.ingredientNames,
+    price: state.burgerReducer.totalPrice,
+  };
+};
+
+export default connect(mapStateToProps)(OrderSummery);

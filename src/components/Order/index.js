@@ -5,9 +5,9 @@ const Order = (props) => {
   //   console.log(props.order);
   return (
     <div className={css.Order}>
-      <p>
-        Хаяг: {props.order.hayag.city}, {props.order.hayag.street}
-      </p>
+      <p>Захиалагч ID: {props.order.userId}</p>
+      <p>Захиалагч нэр: {props.order.hayag.name}</p>
+      <p>Хаяг: {props.order.hayag.address}</p>
       <p>Дүн: {props.order.dun}</p>
     </div>
   );
